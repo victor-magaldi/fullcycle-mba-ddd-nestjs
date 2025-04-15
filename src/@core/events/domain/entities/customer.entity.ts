@@ -1,19 +1,25 @@
 import { Aggregate } from 'src/@core/common/domain/aggregate-root';
 import Cpf from 'src/@core/common/domain/value-objects/cpf-vo';
+import Uuid from 'src/@core/common/domain/value-objects/uid-vo';
+
+export class CustomerId extends Uuid {}
 
 export type CustomerConstructorProps = {
-  id?: string;
+  id: string;
   cpf: Cpf;
   name: string;
 };
 export class Customer extends Aggregate {
-  id?: string;
+  id: CustomerId;
   cpf: Cpf;
   name: string;
 
   constructor(props: CustomerConstructorProps) {
     super();
-    this.id = props.id;
+    this.id =
+      typeof props.id === 'string'
+        ? new CustomerId(props.id)
+        : (props.id ?? new CustomerId());
     this.cpf = props.cpf;
     this.name = props.name;
   }
