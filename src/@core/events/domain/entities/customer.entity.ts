@@ -1,14 +1,17 @@
+import { Aggregate } from 'src/@core/common/domain/aggregate-root';
+
 export type CustomerConstructorProps = {
   id?: string;
   cpf: string;
   name: string;
 };
-export class Customer {
+export class Customer extends Aggregate {
   id?: string;
   cpf: string;
   name: string;
 
   constructor(props: CustomerConstructorProps) {
+    super();
     this.id = props.id;
     this.cpf = props.cpf;
     this.name = props.name;
